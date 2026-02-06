@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sai Kumar P - Salesforce Solutions Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00D9FF;
+            --secondary: #7B2FFF;
+            --accent: #FF3D71;
+            --dark: #0A0E27;
+            --darker: #050815;
+            --light: #E8F4F8;
+            --glow: rgba(0, 217, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(123, 47, 255, 0.1) 0%, transparent 50%);
+            animation: rotate 30s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+            animation: fadeInDown 0.8s ease-out;
+            position: sticky;
+            top: 0;
+            background: rgba(5, 8, 21, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0;
+            text-align: center;
+            animation: fadeIn 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-label {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(232, 244, 248, 0.7);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--darker);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary);
+            box-shadow: 0 0 30px var(--glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid rgba(232, 244, 248, 0.3);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 30px var(--glow);
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+            animation: fadeIn 1s ease-out 0.4s both;
+        }
+
+        .stat-card {
+            background: rgba(10, 14, 39, 0.5);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px var(--glow);
+        }
+
+        .stat-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: rgba(232, 244, 248, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section Headers */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            background: rgba(123, 47, 255, 0.1);
+            border: 1px solid var(--secondary);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--light);
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: rgba(232, 244, 248, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Projects - Detailed Cards */
+        .projects-grid {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .project-detailed {
+            background: rgba(10, 14, 39, 0.6);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            border-radius: 20px;
+            padding: 3.5rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-detailed::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .project-detailed:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-icon-large {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            flex-shrink: 0;
+        }
+
+        .project-header-content {
+            flex: 1;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: rgba(232, 244, 248, 0.6);
+        }
+
+        .meta-icon {
+            color: var(--primary);
+        }
+
+        .project-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 0.8rem;
+        }
+
+        .project-subtitle {
+            font-size: 1rem;
+            color: rgba(232, 244, 248, 0.7);
+            line-height: 1.7;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            padding: 0.4rem 1rem;
+            background: rgba(123, 47, 255, 0.15);
+            border: 1px solid rgba(123, 47, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .tag.primary-tag {
+            background: rgba(0, 217, 255, 0.15);
+            border-color: rgba(0, 217, 255, 0.3);
+            color: var(--primary);
+        }
+
+        .project-content {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .content-section h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .content-section p {
+            color: rgba(232, 244, 248, 0.8);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .content-section ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .content-section li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+            color: rgba(232, 244, 248, 0.8);
+            line-height: 1.7;
+        }
+
+        .content-section li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .impact-card {
+            background: rgba(123, 47, 255, 0.08);
+            border: 1px solid rgba(123, 47, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .impact-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-label {
+            font-size: 0.85rem;
+            color: rgba(232, 244, 248, 0.7);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(123, 47, 255, 0.1));
+            border: 2px solid var(--primary);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .highlight-box strong {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .tech-stack {
+            background: rgba(10, 14, 39, 0.5);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            margin-top: 1.5rem;
+        }
+
+        .tech-stack h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 1rem;
+        }
+
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .tech-category {
+            background: rgba(0, 217, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .tech-category-title {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.7rem;
+        }
+
+        .tech-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tech-item {
+            font-size: 0.75rem;
+            color: rgba(232, 244, 248, 0.8);
+            background: rgba(0, 217, 255, 0.08);
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding-left: 4rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -4.5rem;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border: 4px solid var(--darker);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--glow);
+        }
+
+        .timeline-company {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-role {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-date {
+            color: rgba(232, 244, 248, 0.5);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-description {
+            color: rgba(232, 244, 248, 0.7);
+            line-height: 1.8;
+        }
+
+        .timeline-description ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .timeline-description li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .timeline-description li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(10, 14, 39, 0.5);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            border-radius: 12px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .skill-category:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+
+        .skill-item {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 217, 255, 0.08);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--light);
+            font-weight: 500;
+        }
+
+        /* Certifications */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-badge {
+            background: rgba(10, 14, 39, 0.6);
+            border: 1px solid rgba(123, 47, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .cert-badge:hover {
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(123, 47, 255, 0.2);
+        }
+
+        .cert-badge::before {
+            content: '🏆';
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-name {
+            font-size: 0.95rem;
+            color: var(--light);
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .contact-item a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+            padding: 2rem 0;
+            text-align: center;
+            color: rgba(232, 244, 248, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.5rem; }
+            .hero { padding: 4rem 0; }
+            .section { padding: 4rem 0; }
+            .nav-links { display: none; }
+            .timeline { padding-left: 2rem; }
+            .timeline-item { padding-left: 1rem; }
+            .timeline-item::before { left: -2.5rem; }
+            .project-header { flex-direction: column; }
+            .project-detailed { padding: 2rem; }
+            .impact-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">&lt;SKP/&gt;</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-label">Salesforce Solutions Architect</div>
+                <h1>Sai Kumar P</h1>
+                <p class="hero-subtitle">
+                    Senior Salesforce Consultant specializing in FSL, Agentforce, Health Cloud, and AI-driven automation. 
+                    Transforming business processes with scalable cloud solutions and cutting-edge Salesforce technology.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="container">
+                <div class="stat-card fade-in">
+                    <span class="stat-number">9+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Certifications</span>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Projects Delivered</span>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Users Supported</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-label">Featured Work</div>
+                    <h2>Notable Projects</h2>
+                    <p class="section-description">
+                        Showcasing enterprise-level Salesforce implementations that delivered measurable business impact
+                    </p>
+                </div>
+                
+                <div class="projects-grid">
+                    <!-- Project 1: Agentforce AI -->
+                    <div class="project-detailed fade-in">
+                        <div class="project-header">
+                            <div class="project-icon-large">⚡</div>
+                            <div class="project-header-content">
+                                <div class="project-meta">
+                                    <div class="meta-item">
+                                        <span class="meta-icon">📍</span>
+                                        <span>Pacific Gas and Electric</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-icon">📅</span>
+                                        <span>2023 - Present</span>
+                                    </div>
+                                </div>
+                                <h3 class="project-title">Agentforce AI Prompt Builder Integration</h3>
+                                <p class="project-subtitle">
+                                    Revolutionary AI-powered agent assistance system leveraging Salesforce's latest Agentforce platform and Prompt Builder to transform customer service operations.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="project-tags">
+                            <span class="tag primary-tag">Agentforce</span>
+                            <span class="tag primary-tag">Prompt Builder</span>
+                            <span class="tag">AI/ML</span>
+                            <span class="tag">Service Cloud</span>
+                            <span class="tag">Einstein AI</span>
+                            <span class="tag">LWC</span>
+                        </div>
+
+                        <div class="project-content">
+                            <div class="content-section">
+                                <h3>🎯 Project Overview</h3>
+                                <p>
+                                    Designed and implemented an intelligent agent assistance system that leverages Salesforce Agentforce and Prompt Builder to provide real-time, context-aware guidance to service agents during customer interactions. The system analyzes customer intent, service history, and current context to deliver personalized prompts that help agents resolve issues faster and more effectively.
+                                </p>
+                            </div>
+
+                            <div class="content-section">
+                                <h3>🔧 Key Features</h3>
+                                <ul>
+                                    <li><strong>Intent-Based Prompt Design:</strong> Developed sophisticated prompt templates that analyze customer queries and automatically categorize intent for contextually relevant responses</li>
+                                    <li><strong>Real-Time Contextual AI:</strong> Built Lightning Web Components that integrate with Prompt Builder API to fetch AI-generated suggestions based on conversation context</li>
+                                    <li><strong>Dynamic Knowledge Integration:</strong> Connected Agentforce with the knowledge base to automatically surface relevant articles and documentation</li>
+                                    <li><strong>Multi-Channel Support:</strong> Implemented AI assistance across phone, chat, email, and SMS channels with consistent prompt delivery</li>
+                                    <li><strong>Sentiment Analysis:</strong> Integrated sentiment detection to adjust prompt tone based on customer emotion</li>
+                                    <li><strong>Learning & Optimization:</strong> Built feedback loops where agent selections train the AI model for continuous improvement</li>
+                                </ul>
+                            </div>
+
+                            <div class="highlight-box">
+                                <strong>🎉 Business Impact</strong>
+                                <div class="impact-grid">
+                                    <div class="impact-card">
+                                        <span class="impact-number">30%</span>
+                                        <span class="impact-label">First-Call Resolution</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">45%</span>
+                                        <span class="impact-label">Handle Time Reduction</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">25%</span>
+                                        <span class="impact-label">CSAT Improvement</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">60%</span>
+                                        <span class="impact-label">Faster Onboarding</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tech-stack">
+                                <h4>Technology Stack</h4>
+                                <div class="tech-list">
+                                    <div class="tech-category">
+                                        <div class="tech-category-title">Salesforce AI</div>
+                                        <div class="tech-items">
+                                            <span class="tech-item">Agentforce</span>
+                                            <span class="tech-item">Prompt Builder</span>
+                                            <span class="tech-item">Einstein AI</span>
+                                        </div>
+                                    </div>
+                                    <div class="tech-category">
+                                        <div class="tech-category-title">Development</div>
+                                        <div class="tech-items">
+                                            <span class="tech-item">Apex</span>
+                                            <span class="tech-item">LWC</span>
+                                            <span class="tech-item">Platform Events</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Pole Inspection FSL -->
+                    <div class="project-detailed fade-in">
+                        <div class="project-header">
+                            <div class="project-icon-large">📱</div>
+                            <div class="project-header-content">
+                                <div class="project-meta">
+                                    <div class="meta-item">
+                                        <span class="meta-icon">📍</span>
+                                        <span>Pacific Gas and Electric</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-icon">📅</span>
+                                        <span>2023 - Present</span>
+                                    </div>
+                                </div>
+                                <h3 class="project-title">Pole Inspection & Clearance Mobile App</h3>
+                                <p class="project-subtitle">
+                                    Comprehensive offline-capable mobile solution integrating Field Service Lightning with GIS systems for utility infrastructure inspection operations.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="project-tags">
+                            <span class="tag primary-tag">Field Service Lightning</span>
+                            <span class="tag primary-tag">LemurPro</span>
+                            <span class="tag">GIS Integration</span>
+                            <span class="tag">Mobile</span>
+                            <span class="tag">Offline</span>
+                            <span class="tag">VMARS</span>
+                        </div>
+
+                        <div class="project-content">
+                            <div class="content-section">
+                                <h3>🎯 Project Overview</h3>
+                                <p>
+                                    Developed a sophisticated mobile application for field engineers conducting utility pole inspections. The solution integrates Salesforce Field Service Lightning with GIS data via LemurPro middleware, enabling seamless data flow between systems and supporting wildfire prevention initiatives.
+                                </p>
+                            </div>
+
+                            <div class="content-section">
+                                <h3>🔧 Key Features</h3>
+                                <ul>
+                                    <li><strong>Offline-First Architecture:</strong> Built using Salesforce Mobile SDK with local data caching and conflict resolution for remote areas</li>
+                                    <li><strong>GIS Integration:</strong> Bidirectional integration with ArcGIS systems for viewing pole locations and historical data on interactive maps</li>
+                                    <li><strong>Automated Work Orders:</strong> Intelligent algorithms that generate work orders based on GIS inputs and compliance schedules</li>
+                                    <li><strong>Photo Capture:</strong> Geo-tagged photo documentation with before/after comparison views</li>
+                                    <li><strong>Safety Compliance:</strong> Dynamic inspection forms that adapt based on pole type and regulatory requirements</li>
+                                    <li><strong>Real-Time Scheduling:</strong> FSL scheduling engine optimizing routes based on location, traffic, and priority</li>
+                                    <li><strong>Vegetation Management:</strong> Specialized workflows for tree trimming and clearance measurements</li>
+                                </ul>
+                            </div>
+
+                            <div class="highlight-box">
+                                <strong>🎉 Business Impact</strong>
+                                <div class="impact-grid">
+                                    <div class="impact-card">
+                                        <span class="impact-number">40%</span>
+                                        <span class="impact-label">Inspection Time Reduction</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">95%</span>
+                                        <span class="impact-label">Data Accuracy</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">100%</span>
+                                        <span class="impact-label">Compliance Rate</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">35%</span>
+                                        <span class="impact-label">More Daily Inspections</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tech-stack">
+                                <h4>Technology Stack</h4>
+                                <div class="tech-list">
+                                    <div class="tech-category">
+                                        <div class="tech-category-title">Salesforce Platform</div>
+                                        <div class="tech-items">
+                                            <span class="tech-item">FSL</span>
+                                            <span class="tech-item">Mobile SDK</span>
+                                            <span class="tech-item">Salesforce Maps</span>
+                                        </div>
+                                    </div>
+                                    <div class="tech-category">
+                                        <div class="tech-category-title">Integration</div>
+                                        <div class="tech-items">
+                                            <span class="tech-item">LemurPro</span>
+                                            <span class="tech-item">ArcGIS</span>
+                                            <span class="tech-item">VMARS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Medical Claims -->
+                    <div class="project-detailed fade-in">
+                        <div class="project-header">
+                            <div class="project-icon-large">🏥</div>
+                            <div class="project-header-content">
+                                <div class="project-meta">
+                                    <div class="meta-item">
+                                        <span class="meta-icon">📍</span>
+                                        <span>Med Review, NY</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-icon">📅</span>
+                                        <span>2022 - 2023</span>
+                                    </div>
+                                </div>
+                                <h3 class="project-title">Medical Claims Review System</h3>
+                                <p class="project-subtitle">
+                                    End-to-end healthcare claims processing platform with intelligent automation, SLA compliance monitoring, and external system integration.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="project-tags">
+                            <span class="tag primary-tag">Health Cloud</span>
+                            <span class="tag primary-tag">LWC</span>
+                            <span class="tag">REST API</span>
+                            <span class="tag">OAuth 2.0</span>
+                            <span class="tag">FSL</span>
+                            <span class="tag">Automation</span>
+                        </div>
+
+                        <div class="project-content">
+                            <div class="content-section">
+                                <h3>🎯 Project Overview</h3>
+                                <p>
+                                    Architected and implemented a comprehensive medical claims review system that streamlines the entire claims lifecycle. The platform integrates with external medical estimation tools, automates approval workflows, and ensures strict SLA compliance for time-sensitive healthcare operations.
+                                </p>
+                            </div>
+
+                            <div class="content-section">
+                                <h3>🔧 Key Features</h3>
+                                <ul>
+                                    <li><strong>Intelligent Claim Intake:</strong> Automated claim ingestion from multiple sources with OCR and NLP for data extraction</li>
+                                    <li><strong>External Integration:</strong> Secure OAuth 2.0-based integrations with medical estimation tools for real-time cost analysis</li>
+                                    <li><strong>SLA Compliance:</strong> Time-based triggers and escalation workflows ensuring regulatory timeframe adherence</li>
+                                    <li><strong>FSL Scheduling:</strong> Medical examination and home health visit scheduling with automated reminders</li>
+                                    <li><strong>Advanced Case Management:</strong> Real-time status updates, document management, and collaborative review</li>
+                                    <li><strong>Fraud Detection:</strong> Pattern analysis and billing anomaly detection for suspicious claim flagging</li>
+                                    <li><strong>Comprehensive Reporting:</strong> Dashboards with claim volume, processing times, and financial metrics</li>
+                                </ul>
+                            </div>
+
+                            <div class="highlight-box">
+                                <strong>🎉 Business Impact</strong>
+                                <div class="impact-grid">
+                                    <div class="impact-card">
+                                        <span class="impact-number">40%</span>
+                                        <span class="impact-label">Faster Processing</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">99%</span>
+                                        <span class="impact-label">SLA Compliance</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">50%</span>
+                                        <span class="impact-label">Manual Work Reduction</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">$2M</span>
+                                        <span class="impact-label">Annual Savings</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tech-stack">
+                                <h4>Technology Stack</h4>
+                                <div class="tech-list">
+                                    <div class="tech-category">
+                                        <div class="tech-category-title">Salesforce</div>
+                                        <div class="tech-items">
+                                            <span class="tech-item">Health Cloud</span>
+                                            <span class="tech-item">Service Cloud</span>
+                                            <span class="tech-item">FSL</span>
+                                        </div>
+                                    </div>
+                                    <div class="tech-category">
+                                        <div class="tech-category-title">Development</div>
+                                        <div class="tech-items">
+                                            <span class="tech-item">Apex</span>
+                                            <span class="tech-item">LWC</span>
+                                            <span class="tech-item">Batch Jobs</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: Lightning Migration -->
+                    <div class="project-detailed fade-in">
+                        <div class="project-header">
+                            <div class="project-icon-large">⚙️</div>
+                            <div class="project-header-content">
+                                <div class="project-meta">
+                                    <div class="meta-item">
+                                        <span class="meta-icon">📍</span>
+                                        <span>Truist Bank, Atlanta</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-icon">📅</span>
+                                        <span>2020 - 2022</span>
+                                    </div>
+                                </div>
+                                <h3 class="project-title">Major Lightning Migration Project</h3>
+                                <p class="project-subtitle">
+                                    Large-scale enterprise migration from Classic to Lightning Experience, modernizing 60+ components for a major financial institution.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="project-tags">
+                            <span class="tag primary-tag">Lightning Migration</span>
+                            <span class="tag primary-tag">LWC</span>
+                            <span class="tag">Apex Refactoring</span>
+                            <span class="tag">Financial Services</span>
+                            <span class="tag">Copado</span>
+                            <span class="tag">Change Management</span>
+                        </div>
+
+                        <div class="project-content">
+                            <div class="content-section">
+                                <h3>🎯 Project Overview</h3>
+                                <p>
+                                    Led the comprehensive migration of Truist Bank's Salesforce platform from Classic to Lightning Experience, affecting over 500 users. This transformational project involved modernizing 60+ legacy components while maintaining business continuity and zero downtime.
+                                </p>
+                            </div>
+
+                            <div class="content-section">
+                                <h3>🔧 Key Features</h3>
+                                <ul>
+                                    <li><strong>Component Migration:</strong> Phased roadmap prioritizing high-impact components with optimal conversion approaches</li>
+                                    <li><strong>Modern LWC Development:</strong> Built responsive components using ES6+, Shadow DOM, and Web Components API</li>
+                                    <li><strong>Apex Refactoring:</strong> Modernized legacy code implementing SOLID principles and trigger frameworks</li>
+                                    <li><strong>Batch Job Optimization:</strong> Rewrote inefficient jobs, reducing execution time by 60%</li>
+                                    <li><strong>Integration Upgrade:</strong> Modernized MuleSoft, TIBCO, and IBM DataPower integrations</li>
+                                    <li><strong>UX Enhancement:</strong> Redesigned workflows with dynamic forms, path guidance, and utility bars</li>
+                                    <li><strong>Training & Adoption:</strong> Comprehensive training programs ensuring smooth transition</li>
+                                </ul>
+                            </div>
+
+                            <div class="highlight-box">
+                                <strong>🎉 Business Impact</strong>
+                                <div class="impact-grid">
+                                    <div class="impact-card">
+                                        <span class="impact-number">60+</span>
+                                        <span class="impact-label">Components Migrated</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">500+</span>
+                                        <span class="impact-label">Users Trained</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">45%</span>
+                                        <span class="impact-label">Faster Load Times</span>
+                                    </div>
+                                    <div class="impact-card">
+                                        <span class="impact-number">Zero</span>
+                                        <span class="impact-label">Disruption</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tech-stack">
+                                <h4>Technology Stack</h4>
+                                <div class="tech-list">
+                                    <div class="tech-category">
+                                        <div class="tech-category-title">Lightning</div>
+                                        <div class="tech-items">
+                                            <span class="tech-item">LWC</span>
+                                            <span class="tech-item">Lightning Design</span>
+                                            <span class="tech-item">App Builder</span>
+                                        </div>
+                                    </div>
+                                    <div class="tech-category">
+                                        <div class="tech-category-title">DevOps</div>
+                                        <div class="tech-items">
+                                            <span class="tech-item">Copado</span>
+                                            <span class="tech-item">Git</span>
+                                            <span class="tech-item">Jenkins</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section" style="background: rgba(10, 14, 39, 0.3);">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-label">Career Journey</div>
+                    <h2>Experience</h2>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-company">Pacific Gas and Electric</div>
+                        <div class="timeline-role">Senior Salesforce Consultant</div>
+                        <div class="timeline-date">June 2023 – Present | California</div>
+                        <div class="timeline-description">
+                            <ul>
+                                <li>Implemented Agentforce with FSL to improve agent dispatching, real-time scheduling, and technical tracking</li>
+                                <li>Designed AI-powered prompts and improved adoption using Salesforce Prompt Builder</li>
+                                <li>Developed complex Apex triggers for dispatch validation and scheduling audits</li>
+                                <li>Integrated GIS and VMARS with LemurPro to streamline pole inspection workflows</li>
+                                <li>Automated work order lifecycle and custom Salesforce mobile app for field engineers</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-company">Med Review</div>
+                        <div class="timeline-role">Salesforce Developer</div>
+                        <div class="timeline-date">May 2022 – June 2023 | New York</div>
+                        <div class="timeline-description">
+                            <ul>
+                                <li>Developed Apex classes, Visualforce, LWC, batch jobs, and REST API integrations</li>
+                                <li>Implemented FSL for appointment scheduling and mobile dispatching</li>
+                                <li>Created triggers for claim validation, SLA compliance, and escalation alerts</li>
+                                <li>Built batch jobs for medical lead processing and integrated external systems using OAuth 2.0</li>
+                                <li>Supported deployment and version control through Copado and Git</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-company">Truist Bank</div>
+                        <div class="timeline-role">Salesforce Developer</div>
+                        <div class="timeline-date">March 2020 – April 2022 | Atlanta</div>
+                        <div class="timeline-description">
+                            <ul>
+                                <li>Led migration from Salesforce Classic to Lightning with Apex, LWC, Visualforce solutions</li>
+                                <li>Built batch Apex jobs for loan risk scoring and background verification syncs</li>
+                                <li>Developed bulk-safe Apex triggers and enforced trigger framework standards</li>
+                                <li>Integrated Salesforce with MuleSoft, TIBCO, and IBM DataPower for loan workflows</li>
+                                <li>Managed UAT and stayed current with Salesforce releases</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-company">ICICI Bank</div>
+                        <div class="timeline-role">Salesforce Associate</div>
+                        <div class="timeline-date">June 2016 – February 2018 | Hyderabad</div>
+                        <div class="timeline-description">
+                            <ul>
+                                <li>Created and modified permission sets, workflows, triggers, and validation rules</li>
+                                <li>Wrote Apex logic for real-time lead routing and customer scoring models</li>
+                                <li>Built batch classes for end-of-day transaction rollups and KPI sync</li>
+                                <li>Managed production support for 500+ users and resolved Apex exceptions</li>
+                                <li>Implemented custom Visualforce pages and automation for business workflows</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-label">Technical Expertise</div>
+                    <h2>Skills & Technologies</h2>
+                </div>
+
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Salesforce Development</h3>
+                        <div class="skill-list">
+                            <span class="skill-item">Apex</span>
+                            <span class="skill-item">Visualforce</span>
+                            <span class="skill-item">LWC</span>
+                            <span class="skill-item">SOQL/SOSL</span>
+                            <span class="skill-item">Triggers</span>
+                            <span class="skill-item">Batch Apex</span>
+                            <span class="skill-item">REST/SOAP API</span>
+                            <span class="skill-item">Aura</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Salesforce Products</h3>
+                        <div class="skill-list">
+                            <span class="skill-item">Field Service Lightning</span>
+                            <span class="skill-item">Agentforce</span>
+                            <span class="skill-item">Service Cloud</span>
+                            <span class="skill-item">Health Cloud</span>
+                            <span class="skill-item">Prompt Builder</span>
+                            <span class="skill-item">Platform Events</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Administration</h3>
+                        <div class="skill-list">
+                            <span class="skill-item">Flows</span>
+                            <span class="skill-item">Workflows</span>
+                            <span class="skill-item">Process Builder</span>
+                            <span class="skill-item">Approval Processes</span>
+                            <span class="skill-item">Reports & Dashboards</span>
+                            <span class="skill-item">Sharing Rules</span>
+                            <span class="skill-item">Permission Sets</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Integration & DevOps</h3>
+                        <div class="skill-list">
+                            <span class="skill-item">Postman</span>
+                            <span class="skill-item">OAuth 2.0</span>
+                            <span class="skill-item">MuleSoft</span>
+                            <span class="skill-item">Copado</span>
+                            <span class="skill-item">Git/GitHub</span>
+                            <span class="skill-item">Jenkins</span>
+                            <span class="skill-item">VS Code</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Programming</h3>
+                        <div class="skill-list">
+                            <span class="skill-item">Java</span>
+                            <span class="skill-item">JavaScript</span>
+                            <span class="skill-item">HTML/CSS</span>
+                            <span class="skill-item">JSON</span>
+                            <span class="skill-item">SQL</span>
+                            <span class="skill-item">C/C++</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Tools & Platforms</h3>
+                        <div class="skill-list">
+                            <span class="skill-item">Data Loader</span>
+                            <span class="skill-item">Workbench</span>
+                            <span class="skill-item">Salesforce Inspector</span>
+                            <span class="skill-item">LemurPro</span>
+                            <span class="skill-item">SSRS</span>
+                            <span class="skill-item">Power BI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: rgba(10, 14, 39, 0.3);">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-label">Professional Credentials</div>
+                    <h2>Certifications</h2>
+                </div>
+
+                <div class="certifications-grid">
+                    <div class="cert-badge">
+                        <div class="cert-name">Salesforce Administrator</div>
+                    </div>
+                    <div class="cert-badge">
+                        <div class="cert-name">Platform Developer I</div>
+                    </div>
+                    <div class="cert-badge">
+                        <div class="cert-name">Service Cloud Consultant</div>
+                    </div>
+                    <div class="cert-badge">
+                        <div class="cert-name">Field Service Consultant</div>
+                    </div>
+                    <div class="cert-badge">
+                        <div class="cert-name">Data Cloud Consultant</div>
+                    </div>
+                    <div class="cert-badge">
+                        <div class="cert-name">AI Associate</div>
+                    </div>
+                    <div class="cert-badge">
+                        <div class="cert-name">AI Specialist</div>
+                    </div>
+                    <div class="cert-badge">
+                        <div class="cert-name">Salesforce Associate</div>
+                    </div>
+                    <div class="cert-badge">
+                        <div class="cert-name">Copado Fundamentals 1 SFP</div>
+                    </div>
+                    <div class="cert-badge">
+                        <div class="cert-name">Copado Extension Builder</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-label">Get In Touch</div>
+                    <h2>Let's Connect</h2>
+                    <p class="section-description">
+                        Interested in collaborating or discussing Salesforce solutions? Feel free to reach out!
+                    </p>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <a href="mailto:Saikumarp167@gmail.com">Saikumarp167@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <a href="tel:+15125225255">+1 (512) 522-5255</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <a href="https://linkedin.com/in/saikumarp" target="_blank">LinkedIn Profile</a>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="mailto:Saikumarp167@gmail.com?subject=Salesforce%20Consultation%20Inquiry&body=Hi%20Sai%20Kumar%2C%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss..." class="btn btn-primary">Send a Message</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sai Kumar P. Salesforce Solutions Architect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
